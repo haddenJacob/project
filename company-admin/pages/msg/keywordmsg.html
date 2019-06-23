@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>消息分析</title>
+		<!--bootstrp和jq引入-->
+		<link rel="stylesheet" href="../../common/bootstrap-3.3.7-dist/css/bootstrap.css" />		
+		<link rel="stylesheet" href="../../common/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css"/>
+		<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-table/1.13.1/bootstrap-table.css" rel="stylesheet">-->
+		<link rel="stylesheet" href="../../css/bootstrap-table.css" />
+		<style type="text/css">
+			body{
+				margin: 0;
+   				padding: 0;
+			}
+			/**
+			 *头部区域 
+			 */
+			.user-layout-header{
+				font-family: "微软雅黑";
+				margin-bottom: 40px;
+			}
+			.user-header-h2{
+				
+			    font-size: 26px;
+			    font-weight: 400;
+			    line-height: 1;
+			    margin-bottom: 20px;				
+			}
+			.user-layout-a{
+			    width: auto;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    word-wrap: normal;
+			    max-width: 120px;	
+			    color: #18BC9C;			
+			}
+			.user-layout-a:hover{
+				cursor: pointer;
+				color: #18BC9C;	
+			}
+			.user-layout-a:link{
+				cursor: pointer;
+				color: #18BC9C;					
+			}
+			.user-layout-a:after{
+				cursor: pointer;
+				color: #18BC9C;					
+			}
+			/*.newactive{
+				color: #2C3E50;
+			    background-color: #fff;
+			    border: 1px solid #ecf0f1;
+			    border-bottom-color: transparent;
+			    cursor: default;
+			}    */
+			/**
+			 *内容区域 
+			 */
+			.user-content{
+				padding: 40px;
+				overflow: hidden;
+			}
+			.info_box {
+			    margin-bottom: 20px;
+			}
+			.info_box .inner {
+			    border: 1px solid #e7e7eb;
+			}
+			
+			.inner {
+			    position: relative;
+			}	
+			.info_hd.append_ask {
+			    position: relative;
+			    z-index: 10;
+			}
+			
+			.info_box .info_hd {
+			    *zoom: 1;
+			    line-height: 38px;
+			    height: 38px;
+			    padding: 0 20px;
+			    background-color: #f4f5f9;
+			    border-bottom: 1px solid #e7e7eb;
+			}	
+			.info_box .info_hd h4 {
+			    font-weight: 400;
+			    font-size: 14px;
+			    line-height: 30px;
+			}	
+			.info_hd.append_ask .help {
+			    right: 10px;
+			    top: 0;
+			    *top: 10px;
+			}
+			
+			.info_box .info_hd .ext_info {
+			    float: right;
+			}
+			.help {
+			    position: absolute;
+			    right: 0;
+			    top: 4px;
+			    z-index: 10;
+			}
+			.icon_msg_mini {
+			    width: 16px;
+			    height: 16px;
+			    vertical-align: middle;
+			    display: inline-block;
+			}	
+			.page_user .help .help_content {
+			    top: -9px;
+			}
+			
+			.help .help_content {
+			    display: none;
+			    position: absolute;
+			    top: -19px;
+			    right: -30px;
+			    color: #333;
+			    line-height: 1.6;
+			    background: #fff;
+			    border-left: 1px solid #bababb;
+			    border-bottom: 1px solid #bababb;
+			    white-space: normal;
+			    margin: 44px 16px 0 0;
+			    width: 350px;
+			    border: 1px solid #d9dadc;
+			    font-size: 14px;
+			    color: #8d8d8d;
+			}
+			.help .help_content .dropdown_arrow.out {
+			    top: 0;
+			}
+			
+			.help .help_content .dropdown_arrow {
+			    position: absolute;
+			    right: 13px;
+			    margin-top: -8px;
+			    display: inline-block;
+			    width: 0;
+			    height: 0;
+			    border-width: 8px;
+			    border-style: dashed;
+			    border-color: transparent;
+			    border-top-width: 0;
+			    border-bottom-color: #d9dadc;
+			    border-bottom-style: solid;
+			}
+			.help .help_content .dropdown_arrow.in {
+			    border-bottom-color: #fff;
+			    top: 1px;
+			}
+			
+			.help .help_content .dropdown_arrow {
+			    position: absolute;
+			    right: 13px;
+			    margin-top: -8px;
+			    display: inline-block;
+			    width: 0;
+			    height: 0;
+			    border-width: 8px;
+			    border-style: dashed;
+			    border-color: transparent;
+			    border-top-width: 0;
+			    border-bottom-color: #d9dadc;
+			    border-bottom-style: solid;
+			}	
+			.help .help_content dl {
+			    padding: 20px 25px 5px;
+			}
+			.help .help_content .help-change-footer {
+			    padding: 10px 12px 5px;
+			    border-color: #e7e7eb;
+			    color: #8d8d8d;
+			    border-top: 1px solid #e7e7eb;
+			    margin: 5px 15px 10px;
+			}																									
+			.info_bd {
+			    position: relative;
+			    z-index: 9;
+			}
+			.ui_trendgrid {
+			    table-layout: fixed;
+			    position: relative;
+			    width: 100%;
+			    margin: 20px 0;
+			    margin-left: 3px;
+			}	
+			ui_trendgrid_3 {
+			    display: table;
+			    border-collapse: separate;
+			    border-spacing: 2px;
+			    border-color: grey;
+			    margin-left: 5px;
+			}	
+			.ui_trendgrid td {
+			    height: 130px;
+			    border-right: 1px solid #e7e7eb;
+			}	
+			td, th {
+			    display: table-cell;
+			    text-align: center;
+			    vertical-align: inherit;
+			}
+			.ui_trendgrid_item {
+			    height: 100%;
+			    position: relative;
+			    overflow: hidden;
+			    text-align: center;
+			}
+			.ui_trendgrid_chart {
+			    width: 100%;
+			    position: absolute;
+			    bottom: 0;
+			    left: 1px;
+			}
+			.ui_trendgrid dl {
+			    display: inline-block;
+			    *display: inline;
+			    *zoom: 1;
+			    margin-top: 0;
+			    padding: 0;
+			    text-align: left;
+			    position: relative;
+			    z-index: 2;
+			}	
+			.ui_trendgrid dt {
+			    padding-bottom: 12px;
+			    font-size: 14px;
+			    font-weight: normal;
+			    text-align: center;
+			}	
+			.ui_trendgrid_item b {
+			    font-weight: 400;
+			    font-style: normal;
+			    font-size: 14px;
+			}	
+			.ui_trendgrid dd.ui_trendgrid_number {
+			    text-align: center;
+			    color: #676767;
+			    font-size: 30px;
+			    margin-right: 10px;
+			    margin-bottom: 15px;
+			}	
+			.ui_trendgrid dd {
+			    margin-top: 2px;
+			    font-size: 14px;
+			    line-height: 18px;
+			    white-space: nowrap;
+			}
+			/**
+			 *菜单栏样式 
+			 *
+			 */	
+			 .user-content-menu{
+			 	margin-top: -20px;
+			 }	
+			.section_tab_wrap {
+			    /*margin-bottom: 20px;*/
+			    /*margin-top: -20px;*/
+			    width: 500px;
+			    overflow: hidden;
+			}	
+			.section_tab .tab_navs {
+			    border: 0;
+			    box-shadow: none;
+			    -moz-box-shadow: none;
+			    -webkit-box-shadow: none;
+			    line-height: 14px;
+			    *line-height: 18px;
+			}
+			ul, ol {
+			    padding-left: 0;
+			    list-style-type: none;
+			}			
+			.tab_navs {
+			    *zoom: 1;
+			    text-align: center;
+			    line-height: 30px;
+			    border-bottom: 1px solid #e7e7eb;
+			    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5);
+			    -moz-box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5);
+			    -webkit-box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5);
+			}		
+			div.section_tab .tab_nav.selected {
+			    background-color: #18BC9C;
+			    border: 1px solid #44b549;
+			}
+			
+			.section_tab .tab_nav.selected {
+			    background-color: #18BC9C;
+			    border-color: #576477;
+			    text-decoration: none;
+			    position: relative;
+			    margin-right: -1px;
+			}
+			.section_tab .tab_nav:first-child {
+			    border-top-left-radius: 3px;
+			    -moz-border-radius-topleft: 3px;
+			    -webkit-border-top-left-radius: 3px;
+			    border-bottom-left-radius: 3px;
+			    -moz-border-radius-bottomleft: 3px;
+			    -webkit-border-bottom-left-radius: 3px;
+			}
+			.section_tab .tab_nav {
+			    border-top: 1px solid #c9cace;
+			    border-bottom: 1px solid #c9cace;
+			    border-left: 1px solid #c9cace;
+			    line-height: 38px;
+			}
+			.tab_nav.selected {
+			    background-color: #18BC9C;
+			}
+			.tab_nav.selected {
+			    background-color: #18BC9C;
+			}
+			.tab_nav {
+			    float: left;
+			    font-size: 14px;
+			}			
+			.section_tab .tab_nav.selected a {
+			    color: #fff;
+			}			
+			.tab_nav a {
+			    display: block;
+			    *height: 1%;
+			    text-decoration: none;
+			    color: #222;
+			    outline: 0;
+			    padding: 0 20px;
+			}			
+			/**
+			 *数据表 
+			 */
+			.user-chart{
+				margin-top: 20px;
+				border: 1px solid #e7e7eb;
+				position: relative;
+				/*height: 500px;*/
+				overflow: hidden;
+				clear: both;
+			}
+			.user-chart-btn{
+				background-color: #FFFFFF;
+				/*border-right: 1px solid #e7e7eb;*/
+				border-left: 1px solid #e7e7eb;
+				margin-left: -1px;
+				height: 40px;
+				text-align: center;
+				min-width: 100px;
+			}
+			.chart-btn{
+				background-color:  #18BC9C;
+				color: #FFFFFF;
+			}
+			.chart-btn:hover{
+				background-color:  #18BC9C;
+				color: #FFFFFF;				
+			}
+			.user-folat-btn{
+				float: left;
+				height: 40px;
+			}
+			.input-search{
+				border: 1px solid #e7e7eb;
+				margin-top: 5px;
+				width: 225px;
+				height: 30px;
+			}	
+			.clear { 
+				clear:both; 
+				} 	
+			.sub_title {
+			    clear: both;
+			    position: relative;
+			    z-index: 7;
+			    margin: 20px 20px 0 20px;
+			    padding-left: 3px;
+			    border-left: 4px solid #6b6b6b;
+			    font-size: 14px;
+			    height: 14px;
+			    line-height: 14px;
+			    *height: 20px;
+			    *line-height: 20px;
+			    font-weight: normal;
+			}
+			.icon_msg_mini {
+			    width: 16px;
+			    height: 16px;
+			    vertical-align: middle;
+			    display: inline-block;
+			} 
+			.out-line{
+				border-bottom: 1px solid #e7e7eb;
+			}																								
+			.new-btn{
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;
+			}
+			.new-btn:hover{
+				background-color: #FFFFFF;
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;
+			}
+			.time-btn{
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				background-color: #18BC9C;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;				
+			}		
+			.time-btn:hover{
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;	
+				background-color: #18BC9C;				
+			}
+			.popover {
+			    width: 290px;
+			    z-index: 99999;
+			    font-weight: normal;
+			    font-style: normal;
+			    text-align: left;
+			    color: #222;
+			    line-height: 1.6;
+			}
+			
+			.popover {
+			    width: 257px;
+			    position: absolute;
+			    margin-top: 12px;
+			    z-index: 999999;
+			   	left: 83%;
+			}		
+			.popover .popover_inner {
+			    border-width: 0;
+			    background: #fff;
+			    box-shadow: 0 1px 20px 0 #e4e8eb;
+			    border-radius: 2px;
+			}
+			
+			.popover .popover_inner {
+			    border: 1px solid #d9dadc;
+			    word-wrap: break-word;
+			    word-break: break-all;
+			    padding: 30px;
+			    background-color: #fff;
+			    box-shadow: none;
+			    -moz-box-shadow: none;
+			    -webkit-box-shadow: none;
+			}		
+			.ui_progress_bar {
+			    height: 10px;
+			    background: #44b549;
+			}
+			/**
+			 *table样式 
+			 */			
+			 .table-responsive{
+			 	overflow-x:hidden;
+			 }
+			/*显示*/			
+			.glyphicon{
+				/*height: 100px;*/
+				display: block;
+				width: 16px;
+				margin-top: 7px;
+				height: 14px;
+				cursor: pointer;
+				border-radius: 100%;
+				overflow: hidden;
+				
+			}		
+		</style>
+	</head>
+	<body>
+		<nav>
+			<div class="user-layout-header">
+				<h2 class="user-header-h2">消息分析</h2>
+				<div>
+				<ul class="nav nav-tabs">
+				  <li role="presentation"><a class="user-layout-a" href="msg.html">消息分析</a></li>
+				  <li role="presentation"  class="active"><a class="user-layout-a" href="keywordmsg.html">消息关键词</a></li>
+				</ul>
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="user-content">				
+				<div class="user-content-m">
+								<div class="user-content-menu">
+									<div class="section_tab_wrap" style="width: 1000px;overflow: auto;">
+									    <div class="section_tab">
+									        <ul class="tab_navs">
+								                <li class="tab_nav">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="1">
+								                        	消息关键字：
+								                    </a>
+								                </li>
+								                <li class="tab_nav selected">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="2">
+								                     	  全部
+								                    </a>
+								                </li>
+								                <li class="tab_nav">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="3">
+								                     	   自定义关键字
+								                    </a>
+								                </li>
+								                <li class="tab_nav no_extra" style="border-right: 1px solid #c9cace;">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="4">
+								                   	          非自定义关键字
+								                    </a>
+								                </li>
+									        </ul>
+									    </div>
+									</div>
+								</div>                          
+						</div>
+
+						<!--数据表-->
+						<div class="user-chart">
+							<div class="out-line">
+							<div class="dropdown user-folat-btn">
+							    <button type="button" class="btn dropdown-toggle user-chart-btn" id="dropdownMenu1" data-toggle="dropdown">
+							    	7日
+							    </button>
+							    <button type="button" class="btn dropdown-toggle user-chart-btn" id="dropdownMenu1" data-toggle="dropdown">
+							    	14日
+							    </button>
+							    <button type="button" class="btn dropdown-toggle user-chart-btn chart-btn" id="dropdownMenu1" data-toggle="dropdown">
+							    	30日
+							    </button>
+							</div>	
+							<div class="dropdown user-folat-btn">
+								&nbsp;&nbsp;<span style="color: #18BC9C;">从</span>&nbsp;&nbsp;
+							    <input type="text"  style="border-right: 1px solid #e7e7eb;width: 140px;" class="btn dropdown-toggle user-chart-btn" id="datetime"/>至
+							    <input type="text"  style="border-right: 1px solid #e7e7eb;width: 140px;" class="btn dropdown-toggle user-chart-btn" id="datetime1"/>
+								 &nbsp;&nbsp;<span  style="color: #18BC9C;">时间段数据</span>&nbsp;&nbsp;
+							</div>
+							<div class="dropdown user-folat-btn">
+							    <input type="text" class="input-search" placeholder="输入关键字查询"/>
+							    <input type="text" class="input-search" style="width: 30px;margin-left: -5px;"/>
+							    	 <span style="margin-left: -25px;" class="glyphicon glyphicon-search"></span>
+							</div>
+							<div class="dropdown" style="float: right;"> 
+							    <button type="button" class="btn btn-default new-btn" id="downloadbtn" style="margin-right: 20px;"> 导出Excel</button>
+							    <div class="ext_info help">                        
+										<span class="glyphicon glyphicon-question-sign"></span> 
+									<div class="help_content" id="js_ask_keys_content">                            
+										<i class="dropdown_arrow out"></i>                            
+										<i class="dropdown_arrow in"></i>                            
+										<dl class="help-change-list" id="pop_items_info">                                
+											<dt>消息发送人数</dt>                                
+											<dd>关注者主动发送消息的去重用户数</dd>                                
+											<dt>消息发送次数</dt>                                
+											<dd>关注者主动发送消息的次数</dd>                                
+											<dt>人均发送次数</dt>                                
+											<dd>消息发送总次数/消息发送的去重用户数</dd>                                
+											<dt>原文页阅读人数</dt>                                
+											<dd>点击原文页的去重人数，包括非粉丝</dd>                                
+											<dt>日、周、月</dt>                                
+											<dd>分别计算昨日数据相比1天、7天、30天前的变化情况</dd>                          
+										</dl>                            
+										<div class="help-change-footer" id="footer_items_info">
+											<span class="wechat_data_range">数据从2013年7月1日开始统计。</span>
+											由于服务器缓存，以及指标计算方法和统计时间的差异，数据可能出现微小误差，一般在1%以内。
+										</div>                        
+									</div>                    
+								</div>
+							</div>	
+							<div class="clear"></div> 						
+						</div>
+							<div class="sub_title">详细数据<i class="icon_msg_mini ask" style="margin-left: 5px" id="js_ask_trend"></i></div>
+							<div class="user-tabletend1">
+								<div class="table-responsive" style="margin-left:20px;text-align: center;height: 400px;overflow: auto;margin-right: 20px;margin-top: 20px;">
+									  <table class="table table-striped table-hover table-bordered" id="tblExport">
+									    <thead>
+									      <tr>
+									        <th data-sortable="true">时间</th>
+									        <th data-sortable="true">消息发送人数</th>
+									        <th>消息发送次数</th>
+									        <th>人均发送次数</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr>
+									      	<td>23</td>
+									        <td>湖北</td>
+									        <td>23</td>
+									        <td>3</td>
+									      <tr>
+									      	<td>23</td>
+									        <td>云南</td>
+									        <td>13</td>
+									        <td>3</td>
+									      <tr>
+									      	<td>23</td>
+									        <td>北京</td>
+									        <td>20</td>
+									        <td>3</td>
+									      <tr>
+									      	<td>23</td>
+									        <td>上海</td>
+									        <td>1</td>
+									        <td>3</td>
+									    </tbody>
+									  </table>	
+									</div>									
+								</div>							
+						</div>
+					
+				</div>
+			</div>
+		</nav>
+	</body>
+		<!--jq和bootstrap的js引入-->
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../common/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>	
+		<script type="text/javascript" src="../../common/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="../../common/bootstrap-datetimepicker-master/js/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="../../common/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap-table/1.13.1/bootstrap-table.min.js"></script>
+		<script type="text/javascript" src="../../js/bootstrap-table.js"></script>
+		<!--echart-->
+		<script type="text/javascript" src="../../js/echarts.common.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.table2excel.js"></script>
+		<script type="text/javascript">
+			/**
+			 *时间选择 
+			 */
+			     $("#datetime").datetimepicker({language:"zh-CN"});
+			     $("#datetime1").datetimepicker({language:"zh-CN"});
+			     $("#datetime2").datetimepicker({language:"zh-CN"});
+			     $("#datetime3").datetimepicker({language:"zh-CN"});
+			     /*
+			      当前时间
+			      * */
+				/**
+				 * 
+				 * 获取当前时间
+				 */
+				function getNow(s) {
+				    return s < 10 ? '0' + s: s;
+				}
+				
+				var myDate = new Date();
+				//获取当前年
+				var year=myDate.getFullYear();
+				//获取当前月
+				var month=myDate.getMonth()+1;
+				//上月时间
+				var month1=myDate.getMonth();
+				//获取当前日
+				var date=myDate.getDate(); 
+				var h=myDate.getHours();       //获取当前小时数(0-23)
+				var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+				var s=myDate.getSeconds();  
+				
+				var now=year+'-'+getNow(month1)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m);	
+				var now1=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m);	
+				console.log(now)
+				/**
+				 *初始化时间 
+				 */
+				$('#datetime').val(now)
+				$('#datetime1').val(now1)
+				$('#datetime2').val(now)
+				$('#datetime3').val(now1)
+			     /**
+			      *样式显示 
+			      *
+			      */
+			     $('.glyphicon').on({
+			     	mouseover:function(){
+			     		$('.help_content').css('display','block')
+			     	},
+			     	mouseout:function(){
+			     		$('.help_content').css('display','none')
+			     	}
+			     })
+			     $('.glyphicon').on({
+			     	mouseover:function(){
+			     		$('.popover').css('display','block')
+			     	},
+			     	mouseout:function(){
+			     		$('.popover').css('display','none')
+			     	}
+			     })			     
+				/**
+				 *表格下载 
+				 */
+				$('#downloadbtn').on('click',function(){
+					$('#tblExport').table2excel({
+						 exclude  : ".noExl", //过滤位置的 css 类名
+               			 filename : "数据表-" + new Date().getTime() + ".xls" //文件名称						
+					})
+				})
+		</script>
+</html>

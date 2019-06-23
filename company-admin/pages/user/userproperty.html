@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户属性</title>
+		<!--bootstrp和jq引入-->
+		<link rel="stylesheet" href="../../common/bootstrap-3.3.7-dist/css/bootstrap.css" />		
+		<link rel="stylesheet" href="../../common/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css"/>
+		
+		<style type="text/css">
+			body{
+				margin: 0;
+   				padding: 0;
+			}
+			/**
+			 *头部区域 
+			 */
+			.user-layout-header{
+				font-family: "微软雅黑";
+				margin-bottom: 40px;
+			}
+			.user-header-h2{
+				
+			    font-size: 26px;
+			    font-weight: 400;
+			    line-height: 1;
+			    margin-bottom: 20px;				
+			}
+			.user-layout-a{
+			    width: auto;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    word-wrap: normal;
+			    max-width: 120px;	
+			    color: #18BC9C;			
+			}
+			.user-layout-a:hover{
+				cursor: pointer;
+				color: #18BC9C;	
+			}
+			.user-layout-a:link{
+				cursor: pointer;
+				color: #18BC9C;					
+			}
+			.user-layout-a:after{
+				cursor: pointer;
+				color: #18BC9C;					
+			}
+			/*.newactive{
+				color: #2C3E50;
+			    background-color: #fff;
+			    border: 1px solid #ecf0f1;
+			    border-bottom-color: transparent;
+			    cursor: default;
+			}    */
+			/**
+			 *内容区域 
+			 */
+			.user-content{
+				padding: 40px;
+				overflow: hidden;
+			}
+			.info_box {
+			    margin-bottom: 20px;
+			}
+			.info_box .inner {
+			    border: 1px solid #e7e7eb;
+			}
+			
+			.inner {
+			    position: relative;
+			}	
+			.info_hd.append_ask {
+			    position: relative;
+			    z-index: 10;
+			}
+			
+			.info_box .info_hd {
+			    *zoom: 1;
+			    line-height: 38px;
+			    height: 38px;
+			    padding: 0 20px;
+			    background-color: #f4f5f9;
+			    border-bottom: 1px solid #e7e7eb;
+			}	
+			.info_box .info_hd h4 {
+			    font-weight: 400;
+			    font-size: 14px;
+			    line-height: 30px;
+			}	
+			.info_hd.append_ask .help {
+			    right: 10px;
+			    top: 0;
+			    *top: 10px;
+			}
+			
+			.info_box .info_hd .ext_info {
+			    float: right;
+			}
+			.help {
+			    position: absolute;
+			    right: 0;
+			    top: 4px;
+			    z-index: 10;
+			}
+			.icon_msg_mini {
+			    width: 16px;
+			    height: 16px;
+			    vertical-align: middle;
+			    display: inline-block;
+			}	
+			.page_user .help .help_content {
+			    top: -9px;
+			}
+			
+			.help .help_content {
+			    display: none;
+			    position: absolute;
+			    top: -19px;
+			    right: -30px;
+			    color: #333;
+			    line-height: 1.6;
+			    background: #fff;
+			    border-left: 1px solid #bababb;
+			    border-bottom: 1px solid #bababb;
+			    white-space: normal;
+			    margin: 44px 16px 0 0;
+			    width: 350px;
+			    border: 1px solid #d9dadc;
+			    font-size: 14px;
+			    color: #8d8d8d;
+			}
+			.help .help_content .dropdown_arrow.out {
+			    top: 0;
+			}
+			
+			.help .help_content .dropdown_arrow {
+			    position: absolute;
+			    right: 13px;
+			    margin-top: -8px;
+			    display: inline-block;
+			    width: 0;
+			    height: 0;
+			    border-width: 8px;
+			    border-style: dashed;
+			    border-color: transparent;
+			    border-top-width: 0;
+			    border-bottom-color: #d9dadc;
+			    border-bottom-style: solid;
+			}
+			.help .help_content .dropdown_arrow.in {
+			    border-bottom-color: #fff;
+			    top: 1px;
+			}
+			
+			.help .help_content .dropdown_arrow {
+			    position: absolute;
+			    right: 13px;
+			    margin-top: -8px;
+			    display: inline-block;
+			    width: 0;
+			    height: 0;
+			    border-width: 8px;
+			    border-style: dashed;
+			    border-color: transparent;
+			    border-top-width: 0;
+			    border-bottom-color: #d9dadc;
+			    border-bottom-style: solid;
+			}	
+			.help .help_content dl {
+			    padding: 20px 25px 5px;
+			}
+			.help .help_content .help-change-footer {
+			    padding: 10px 12px 5px;
+			    border-color: #e7e7eb;
+			    color: #8d8d8d;
+			    border-top: 1px solid #e7e7eb;
+			    margin: 5px 15px 10px;
+			}																									
+			.info_bd {
+			    position: relative;
+			    z-index: 9;
+			}
+
+			/**
+			 *菜单栏样式 
+			 *
+			 */	
+			 .user-content-menu{
+			 	/*position: relative;*/
+			 }	
+			.section_tab_wrap {
+			    margin-bottom: 20px;
+			    width: 500px;
+			    overflow: hidden;
+			}	
+			.section_tab .tab_navs {
+			    border: 0;
+			    box-shadow: none;
+			    -moz-box-shadow: none;
+			    -webkit-box-shadow: none;
+			    line-height: 14px;
+			    *line-height: 18px;
+			}
+			ul, ol {
+			    padding-left: 0;
+			    list-style-type: none;
+			}			
+			.tab_navs {
+			    *zoom: 1;
+			    text-align: center;
+			    line-height: 40px;
+			    border-bottom: 1px solid #e7e7eb;
+			    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5);
+			    -moz-box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5);
+			    -webkit-box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.5);
+			}	
+			.tab_navs li{
+				height: 40px;
+				line-height: 40px;
+			}		
+			div.section_tab .tab_nav.selected {
+			    background-color: #18BC9C;
+			    border: 1px solid #44b549;
+			}
+			
+			.section_tab .tab_nav.selected {
+			    background-color: #18BC9C;
+			    border-color: #576477;
+			    text-decoration: none;
+			    position: relative;
+			    margin-right: -1px;
+			}
+			.section_tab .tab_nav:first-child {
+			    border-top-left-radius: 3px;
+			    -moz-border-radius-topleft: 3px;
+			    -webkit-border-top-left-radius: 3px;
+			    border-bottom-left-radius: 3px;
+			    -moz-border-radius-bottomleft: 3px;
+			    -webkit-border-bottom-left-radius: 3px;
+			}
+			.section_tab .tab_nav {
+			    /*border-top: 1px solid #c9cace;*/
+			    /*border-bottom: 1px solid #c9cace;*/
+			    /*border-left: 1px solid #c9cace;*/
+			    line-height: 40px;
+			}
+			.tab_nav.selected {
+			    background-color: #18BC9C;
+			}
+			.tab_nav.selected {
+			    background-color: #18BC9C;
+			}
+			.tab_nav {
+			    float: left;
+			    font-size: 14px;
+			}			
+			.section_tab .tab_nav.selected a {
+			    color: #fff;
+			}			
+			.tab_nav a {
+			    display: block;
+			    *height: 1%;
+			    height: 40px;
+			    text-decoration: none;
+			    color: #222;
+			    outline: 0;
+			    padding: 0 20px;
+			}			
+			/**
+			 *数据表 
+			 */
+			.user-chart{
+				margin-top: 20px;
+				border: 1px solid #e7e7eb;
+				position: relative;
+				/*height: 500px;*/
+				overflow: hidden;
+				clear: both;
+			}
+			.user-chart-btn{
+				background-color: #FFFFFF;
+				border-right: 1px solid #e7e7eb;
+				border-left: 1px solid #e7e7eb;
+				margin-left: -1px;
+				height: 40px;
+				text-align: center;
+			}
+			.user-folat-btn{
+				float: left;
+				height: 40px;
+			}	
+			.clear { 
+				clear:both; 
+				} 	
+			.sub_title {
+			    clear: both;
+			    position: relative;
+			    z-index: 7;
+			    margin: 20px 20px 0 20px;
+			    padding-left: 3px;
+			    border-left: 4px solid #6b6b6b;
+			    font-size: 14px;
+			    height: 14px;
+			    line-height: 14px;
+			    *height: 20px;
+			    *line-height: 20px;
+			    font-weight: normal;
+			}
+			.icon_msg_mini {
+			    width: 16px;
+			    height: 16px;
+			    vertical-align: middle;
+			    display: inline-block;
+			} 
+			.out-line{
+				border-bottom: 1px solid #e7e7eb;
+			}																								
+			.new-btn{
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;
+			}
+			.new-btn:hover{
+				background-color: #FFFFFF;
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;
+			}
+			.time-btn{
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				background-color: #18BC9C;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;	
+				border-radius: 0;			
+			}		
+			.time-btn:hover{
+				height: 40px;
+				border-top-width: 0px;
+				border-bottom-width: 0px;
+				border-left: 1px solid #e7e7eb;
+				border-right: 1px solid #e7e7eb;	
+				background-color: #18BC9C;	
+				border-radius: 0;				
+			}
+			.popover {
+			    width: 290px;
+			    z-index: 99999;
+			    font-weight: normal;
+			    font-style: normal;
+			    text-align: left;
+			    color: #222;
+			    line-height: 1.6;
+			}
+			
+			.popover {
+			    width: 257px;
+			    position: absolute;
+			    margin-top: 12px;
+			    z-index: 999999;
+			   	left: 83%;
+			}		
+			.popover .popover_inner {
+			    border-width: 0;
+			    background: #fff;
+			    box-shadow: 0 1px 20px 0 #e4e8eb;
+			    border-radius: 2px;
+			}
+			
+			.popover .popover_inner {
+			    border: 1px solid #d9dadc;
+			    word-wrap: break-word;
+			    word-break: break-all;
+			    padding: 30px;
+			    background-color: #fff;
+			    box-shadow: none;
+			    -moz-box-shadow: none;
+			    -webkit-box-shadow: none;
+			}	
+			/**
+			 *男女数据样式 
+			 *
+			 */																						
+
+			#main{
+				margin-top: 20px;
+			}
+			.ui_progress_bar {
+			    height: 10px;
+			    background: #44b549;
+			}
+			
+			
+			
+			/*显示*/			
+			.glyphicon{
+				/*height: 100px;*/
+				display: block;
+				width: 16px;
+				margin-top: 5px;
+				height: 14px;
+				cursor: pointer;
+				border-radius: 100%;
+				overflow: hidden;
+				
+			}		
+		</style>
+	</head>
+	<body>
+		<nav>
+			<div class="user-layout-header">
+				<h2 class="user-header-h2">用户属性</h2>
+				<div>
+				<ul class="nav nav-tabs">
+				  <li role="presentation"><a class="user-layout-a" href="user.html">用户增长</a></li>
+				  <li role="presentation"  class="active"><a class="user-layout-a" href="userproperty.html">用户属性</a></li>
+				</ul>
+				</div>
+			</div>
+			<!--内容区域-->
+			<div class="user-content">
+					<div class="info_box" id="">           
+						<div class="inner">               
+							<div class="info_hd append_ask">                   
+								<h4>用户属性</h4>                    
+								<div class="ext_info help">                        
+										<span class="glyphicon glyphicon-question-sign"></span>
+									<div class="help_content" id="js_ask_keys_content">                            
+										<i class="dropdown_arrow out"></i>                            
+										<i class="dropdown_arrow in"></i>                            
+										<dl class="help-change-list" id="pop_items_info">                             
+											<dt>性别</dt>                             
+											<dd>用户的性别分为男、女和其他</dd>                             
+											<dt>省份、城市</dt>                             
+											<dd>地域分布情况</dd>                             
+											<dt>语言</dt>                             
+											<dd>语言分布情况</dd>                             
+											<dt>请注意</dt>                             
+											<dd>用户总数根据昨日数据计算，而用户管理模块根据当前实时数据计算，两者可能不一致</dd>                         
+										</dl>                           
+										<div class="help-change-footer" id="footer_items_info">
+											<span class="wechat_data_range">数据从2013年7月1日开始统计。</span>
+											由于服务器缓存，以及指标计算方法和统计时间的差异，数据可能出现微小误差，一般在1%以内。
+										</div>                        
+									</div>                    
+								</div>               
+							</div>                
+							<div class="info_bd">                    
+									<div class="content" id="js_keydata">
+										<div class="sub_title">性别分布<i class="icon_msg_mini ask" style="margin-left: 5px" id="js_ask_trend"></i></div>
+									</div> 
+									<div class="user-echarttend">
+										<div id="main" style="width: 100%;height:140px;"></div>
+									</div>	
+									<div class="content" id="js_keydata">
+										<div class="sub_title">语言分布<i class="icon_msg_mini ask" style="margin-left: 5px" id="js_ask_trend"></i></div>
+									</div> 
+									<div class="user-echarttend">
+										<div id="main1" style="width: 100%;height:140px;"></div>
+									</div>
+									<div class="content" id="js_keydata">
+										<div class="sub_title">省份分布<i class="icon_msg_mini ask" style="margin-left: 5px" id="js_ask_trend"></i></div>
+									</div> 
+									<div style="display: flex;margin-left: 20px;margin-top: 20px;">            
+										<span class="msg_icon_wrp" style="display:block;border-radius: 100%;overflow: hidden;width: 16px;height: 16px;">                
+											<img style="width: 100%;height: 100%;line-height: 16px;margin-top: -6px;" alt=" " src="../../img/gantan.jpg" />
+										</span>            
+										<div class="msg_content">                
+											<p>本页根据昨日数据来计算，而用户管理页根据当前数据计算，两者不一致。</p> 
+										</div>        
+									</div>
+									<div class="user-echarttend">
+										<div id="main2" style="width: 100%;height:500px;"></div>
+									</div>
+									<div class="china-table" style="max-height: 300px;overflow: auto;width: 1000px;margin-left:20px;">
+									  <table class="table table-bordered" id="tblExport">
+									    <thead>
+									      <tr>
+									        <th>省份</th>
+									        <th>关注人数</th>
+									        <th>比例</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr>
+									        <td>湖北</td>
+									        <td>23</td>
+									        <td>
+									        	<div class="ui_progress">
+                                                    <div style="width:86.71428571428571%;" class="ui_progress_bar"></div>
+                                            	</div>
+									        </td>
+									      <tr>
+									        <td>云南</td>
+									        <td>13</td>
+									        <td>
+									        	<div class="ui_progress">
+                                                    <div style="width:66.71428571428571%;" class="ui_progress_bar"></div>
+                                            	</div>
+									        </td>
+									      <tr>
+									        <td>北京</td>
+									        <td>20</td>
+									        <td>
+									        	<div class="ui_progress">
+                                                    <div style="width:20.71428571428571%;" class="ui_progress_bar"></div>
+                                            	</div>
+									        </td>
+									      <tr>
+									        <td>上海</td>
+									        <td>1</td>
+									        <td>
+									        	<div class="ui_progress">
+                                                    <div style="width:10.71428571428571%;" class="ui_progress_bar"></div>
+                                            	</div>
+									        </td>
+									    </tbody>
+									  </table>										
+									</div>
+									<div class="content" id="js_keydata">
+										<div class="sub_title">终端分布<i class="icon_msg_mini ask" style="margin-left: 5px" id="js_ask_trend"></i></div>
+									</div>
+									<div class="user-echarttend">
+										<div id="main3" style="width: 100%;height:140px;"></div>
+									</div>
+							</div>            
+							</div>        
+						</div>				
+				
+						<div class="user-chart">
+							<div class="out-line" style="height: 40px;">
+							<!--菜单导航-->
+								<div class="user-content-menu">
+									<div class="section_tab_wrap">
+									    <div class="section_tab">
+									        <ul class="tab_navs" style="height: 40px;line-height: 40px;">
+								                <li class="tab_nav">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="1">
+								                        	属性分布
+								                    </a>
+								                </li>
+								                <li class="tab_nav  selected">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="2">
+								                     	   性别
+								                    </a>
+								                </li>
+								                <li class="tab_nav">
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="2">
+								                     	   语言
+								                    </a>
+								                </li>
+								                <li class="tab_nav no_extra" >
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="2">
+								                   	          省份
+								                    </a>
+								                </li>
+								                <li class="tab_nav no_extra" >
+								                    <a href="javascript:void(0);" class="js_typeSelect" type="2">
+								                   	          终端
+								                    </a>
+								                </li>
+									        </ul>
+									    </div>
+									</div>
+								</div>						
+							</div>
+							<div class="sub_title">详细数据<i class="icon_msg_mini ask" style="margin-left: 5px;" id="js_ask_trend"></i></div>	
+									<div class="detail-table" style="margin-top: 20px;margin-bottom: 50px;margin-left:20px;max-height: 400px;overflow: auto;width: 1000px;">
+									  <table class="table table-bordered" id="tblExport">
+									    <thead>
+									      <tr>
+									        <th>性别</th>
+									        <th>用户</th>
+									        <th>比例</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr>
+									        <td>男</td>
+									        <td>23</td>
+									        <td>89%</td>
+									      <tr>
+									        <td>女</td>
+									        <td>13</td>
+									        <td>50%</td>
+									      <tr>
+									        <td>男</td>
+									        <td>20</td>
+									        <td>45.8%</td>
+									      <tr>
+									        <td>女</td>
+									        <td>1</td>
+									        <td>78.55%</td>
+									    </tbody>
+									  </table>										
+									</div>							
+							</div>
+							</div>
+			</div>
+		</nav>
+	</body>
+		<!--jq和bootstrap的js引入-->
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../common/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>	
+		<script type="text/javascript" src="../../common/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="../../common/bootstrap-datetimepicker-master/js/moment-with-locales.min.js"></script>
+		<!--echart-->
+		<script type="text/javascript" src="../../js/echarts.common.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.table2excel.js"></script>
+		<script type="text/javascript" src="../../js/echarts.min.js"></script>
+		<script type="text/javascript" src="../../js/china.js"></script>
+		<script type="text/javascript">
+			/**
+			 *时间选择 
+			 */
+			     $("#datetime").datetimepicker({language:"zh-CN"});
+			     $("#datetime1").datetimepicker({language:"zh-CN"});
+			     $("#datetime2").datetimepicker({language:"zh-CN"});
+			     $("#datetime3").datetimepicker({language:"zh-CN"});
+			     /*
+			      当前时间
+			      * */
+				/**
+				 * 
+				 * 获取当前时间
+				 */
+				function getNow(s) {
+				    return s < 10 ? '0' + s: s;
+				}
+				
+				var myDate = new Date();
+				//获取当前年
+				var year=myDate.getFullYear();
+				//获取当前月
+				var month=myDate.getMonth()+1;
+				//上月时间
+				var month1=myDate.getMonth();
+				//获取当前日
+				var date=myDate.getDate(); 
+				var h=myDate.getHours();       //获取当前小时数(0-23)
+				var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+				var s=myDate.getSeconds();  
+				
+				var now=year+'-'+getNow(month1)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);	
+				var now1=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);	
+				console.log(now)
+				/**
+				 *初始化时间 
+				 */
+				$('#datetime').val(now)
+				$('#datetime1').val(now1)
+				$('#datetime2').val(now)
+				$('#datetime3').val(now1)
+			     /**
+			      *样式显示 
+			      *
+			      */
+			     $('.glyphicon').on({
+			     	mouseover:function(){
+			     		$('.help_content').css('display','block')
+			     	},
+			     	mouseout:function(){
+			     		$('.help_content').css('display','none')
+			     	}
+			     })
+			     $('.glyphicon').on({
+			     	mouseover:function(){
+			     		$('.popover').css('display','block')
+			     	},
+			     	mouseout:function(){
+			     		$('.popover').css('display','none')
+			     	}
+			     })			     
+			     /**
+			      * 
+			      *echart数据
+			      */
+				var myChart = echarts.init(document.getElementById('main'));
+				
+				option = {
+				    tooltip : {
+				        trigger: 'axis',
+				        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['男', '女']
+				    },
+				    grid: {
+				    	top: '20%',
+				        left: '3%',
+				        right: '4%',
+				        height:'100px',
+				        containLabel: true
+				    },
+				    xAxis:  {
+				        type: 'value'
+				    },
+				    yAxis: {
+				        type: 'category',
+				        data: ['男女分布数据']
+				    },
+				    series: [
+				        {
+				            name: '男',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            color:'#4A90E2',
+				            data: [320]
+				        },
+				        {
+				            name: '女',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            color:'#44B549',
+				            data: [120]
+				        }
+				    ]
+				};
+				myChart.setOption(option);	
+				
+				var myChart1 = echarts.init(document.getElementById('main1'));
+				
+				option = {
+				    tooltip : {
+				        trigger: 'axis',
+				        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['男', '女']
+				    },
+				    grid: {
+				    	top: '20%',
+				        left: '3%',
+				        right: '4%',
+				        height:'100px',
+				        containLabel: true
+				    },
+				    xAxis:  {
+				        type: 'value'
+				    },
+				    yAxis: {
+				        type: 'category',
+				        data: ['男女分布数据']
+				    },
+				    series: [
+				        {
+				            name: '男',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            color:'#4A90E2',
+				            data: [320]
+				        },
+				        {
+				            name: '女',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            color:'#44B549',
+				            data: [120]
+				        }
+				    ]
+				};
+				myChart1.setOption(option);	
+				/**
+				 *中国地图数据 
+				 */
+					function randomData() {
+						return Math.round(Math.random()*500);
+					}
+				 	var china = echarts.init(document.getElementById('main2'));
+					var option = {
+//					        title: {
+//					            text: '省份分布'
+//					        },
+					        toolbox: {
+					            show: true,
+					            orient: 'vertical',
+					            left: 'right',
+					            top: 'center',
+					            feature: {
+					                dataView: {readOnly: false},
+					                restore: {},
+					                saveAsImage: {}
+					            }
+					        },
+					        visualMap: {
+					            min: 800,
+					            max: 50000,
+					            text:['高','低'],
+					            realtime: false,
+					            calculable: true,
+					            inRange: {
+					                color: ['lightskyblue','yellow', 'orangered']
+					            }
+					        },
+					        series: [
+					            {
+					                name: '省份分布图',
+					                type: 'map',
+					                mapType: 'china', // 自定义扩展图表类型
+					                itemStyle:{
+					                    normal:{label:{show:true}},
+					                    emphasis:{label:{show:true}}
+					                },
+					                data:[
+					                        {name: '北京',value: Math.round(Math.random()*2000)},
+						                    {name: '天津',value: Math.round(Math.random()*2000)},
+						                    {name: '上海',value: Math.round(Math.random()*2000)},
+						                    {name: '重庆',value: Math.round(Math.random()*2000)},
+						                    {name: '河北',value: 0},
+						                    {name: '河南',value: Math.round(Math.random()*2000)},
+						                    {name: '云南',value: 5},
+						                    {name: '辽宁',value: 305},
+						                    {name: '黑龙江',value: Math.round(Math.random()*2000)},
+						                    {name: '湖南',value: 200},
+						                    {name: '安徽',value: Math.round(Math.random()*2000)},
+						                    {name: '山东',value: Math.round(Math.random()*2000)},
+						                    {name: '新疆',value: Math.round(Math.random()*2000)},
+						                    {name: '江苏',value: Math.round(Math.random()*2000)},
+						                    {name: '浙江',value: Math.round(Math.random()*2000)},
+						                    {name: '江西',value: Math.round(Math.random()*2000)},
+						                    {name: '湖北',value: Math.round(Math.random()*2000)},
+						                    {name: '广西',value: Math.round(Math.random()*2000)},
+						                    {name: '甘肃',value: Math.round(Math.random()*2000)},
+						                    {name: '山西',value: Math.round(Math.random()*2000)},
+						                    {name: '内蒙古',value: Math.round(Math.random()*2000)},
+						                    {name: '陕西',value: Math.round(Math.random()*2000)},
+						                    {name: '吉林',value: Math.round(Math.random()*2000)},
+						                    {name: '福建',value: Math.round(Math.random()*2000)},
+						                    {name: '贵州',value: Math.round(Math.random()*2000)},
+						                    {name: '广东',value: Math.round(Math.random()*2000)},
+						                    {name: '青海',value: Math.round(Math.random()*2000)},
+						                    {name: '西藏',value: Math.round(Math.random()*2000)},
+						                    {name: '四川',value: Math.round(Math.random()*2000)},
+						                    {name: '宁夏',value: Math.round(Math.random()*2000)},
+						                    {name: '海南',value: Math.round(Math.random()*2000)},
+						                    {name: '台湾',value: Math.round(Math.random()*2000)},
+						                    {name: '香港',value: Math.round(Math.random()*2000)},
+						                    {name: '澳门',value: Math.round(Math.random()*2000)}
+					                ]
+					            }
+					        ]
+					       }
+					china.setOption(option);
+
+				var myChart3= echarts.init(document.getElementById('main3'));
+				
+				option = {
+				    tooltip : {
+				        trigger: 'axis',
+				        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['电脑', '手机']
+				    },
+				    grid: {
+				    	top: '20%',
+				        left: '3%',
+				        right: '4%',
+				        height:'100px',
+				        containLabel: true
+				    },
+				    xAxis:  {
+				        type: 'value'
+				    },
+				    yAxis: {
+				        type: 'category',
+				        data: ['电脑手机使用分布']
+				    },
+				    series: [
+				        {
+				            name: '电脑',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            color:'#4A90E2',
+				            data: [320]
+				        },
+				        {
+				            name: '手机',
+				            type: 'bar',
+				            stack: '总量',
+				            label: {
+				                normal: {
+				                    show: true,
+				                    position: 'insideRight'
+				                }
+				            },
+				            color:'#44B549',
+				            data: [120]
+				        }
+				    ]
+				};
+				myChart3.setOption(option);	
+				/**
+				 * 
+				 *表格下载 
+				 */
+				$('#downloadbtn').on('click',function(){
+					$('#tblExport').table2excel({
+						 exclude  : ".noExl", //过滤位置的 css 类名
+               			 filename : "数据表-" + new Date().getTime() + ".xls" //文件名称						
+					})
+				})
+		</script>
+</html>

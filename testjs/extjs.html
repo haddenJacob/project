@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+        <title>FrozenUI Demo</title>
+        <!-- 引入 FrozenUI -->
+        <link rel="stylesheet" href="http://i.gtimg.cn/vipstyle/frozenui/2.0.0/css/frozen.css"/>
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <style>
+        	.con{ height:1200px;}
+.list{ list-style:none; padding:0; margin:0; border-top:2px solid blue;}
+.list li{ height:500px; border-bottom:1px solid green;}
+.list li p{ opacity:0; animation:move 1s forwards; animation-play-state:paused;}
+.list .move p{ animation-play-state:running;}
+	@keyframes move{
+	from{ opacity:0; margin-left:500px;}
+	to{ opacity:1; margin-left:0;}
+	}
+        </style>
+        <script>
+        	$(document).ready(function(){
+				var a,b,c;
+				a=$(window).height();	
+				$(window).scroll(function(){	
+					var b=$(this).scrollTop();
+					$(".list li").each(function(){
+					c=$(this).offset().top;	
+					console.log(a+"***"+b+"***"+c);
+						if(a+b>c){
+						$(this).addClass("move");
+						}
+					else{
+						$(this).removeClass("move");
+						}
+					});	
+				});
+				
+				});
+        </script>
+    </head>
+    <body>
+        <!-- 使用 -->
+        <div class="ui-btn-wrap">
+			<div class="con">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+			
+			<ul class="list"> 
+			<li>
+			<p>第1屏动画进入视线</p>
+			</li>
+			<li>
+			<p>第2屏动画进入视线</p>
+			</li>
+			<li>
+			<p>第3屏动画进入视线</p>
+			</li>
+			</ul>
+        </div>
+    </body>
+</html>

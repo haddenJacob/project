@@ -1,0 +1,20 @@
+			.header-out{
+				margin-top: 0px;
+				height: 90px;
+			    position: relative;
+			    font-size: 36px;
+			    color: #00ffff;
+			    text-align: center;
+			    background: url(../img/bg.png) top center no-repeat;
+			}
+			.header{
+				height: 90px;
+				background-color: rgba(0,0,0,0.2);	
+				padding: 0 300px;	
+			}
+			.title{
+				height: 51px;
+				line-height: 70px;
+				border: 1px solid #00FFFF;	
+				border-bottom: 0;
+			}

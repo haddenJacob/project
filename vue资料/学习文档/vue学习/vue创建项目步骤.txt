@@ -1,0 +1,10 @@
+使用脚手架安装项目： vue init webpack demo 项目是基于webpack的
+Project name（工程名）:回车
+Project description（工程介绍）：回车
+Author：作者名
+Vue build（是否安装编译器）:回车
+Install vue-router（是否安装Vue路由）：回车
+Use ESLint to lint your code（是否使用ESLint检查js代码）：n
+Set up unit tests（安装单元测试工具）：n
+Setup e2e tests with Nightwatch（是否安装端到端测试工具）：n
+Should we run npm install for you after the project has been created? (recommended)：回车。

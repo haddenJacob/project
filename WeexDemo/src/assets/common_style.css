@@ -1,0 +1,103 @@
+/*
+ 
+ * 字体样式
+ * */
+    @font-face {
+        font-family: 'iconfont';
+        src: url('https://at.alicdn.com/t/font_585594_jlcbxm1i1vt5ipb9.ttf') format('truetype');
+    }
+
+    [class^="yd-icon-"]:before, [class*=" yd-icon-"]:before {
+        font-family: 'iconfont'!important;
+    }
+    .yd-icon-icon-left:before {
+        content: '\E78d';
+    }
+    .yd-icon-icon-erweima:before {
+        content: '\E606';
+    }
+    .yd-icon-icon-xiangshang2:before {
+        content: '\E63f';
+    }
+    /*
+     底部样式
+     * */
+    .yd-icon-icon-home:before {
+        content: '\E64e';
+    }
+    .yd-icon-icon-map:before {
+        content: '\E62e';
+    }
+    .yd-icon-icon-user:before {
+        content: '\E622';
+    }
+    .yd-icon-icon-xiaoxi:before {
+        content: '\E616';
+    }
+    /**
+     * 用户选项卡
+     *
+     */
+    .yd-icon-icon-Car:before {
+        content: '\E65f';
+    }
+    .yd-icon-icon-chongzhi2:before {
+        content: '\E659';
+    }
+    .yd-icon-icon-chujiejihua:before {
+        content: '\E72c';
+    }
+    .yd-icon-icon-huabeizhangdan:before {
+        content: '\E8af';
+    }
+    .yd-icon-icon-shouye:before {
+        content: '\E68b';
+    }
+    .yd-icon-icon-zhangdan:before {
+        content: '\E61b';
+    }
+    .font-bg1{
+	    border-radius: 8px;
+	    padding: 4px;
+	    color: #FF685D;
+    }
+    .font-bg2{
+	    border-radius: 8px;
+	    padding: 4px;
+	    color: #F7A42C;
+    }
+    .font-bg3{
+	    border-radius: 8px;
+	    padding: 4px;
+	    color: #9DBC79;
+    }
+    .font-bg4{
+	    border-radius: 8px;
+	    padding: 4px;
+	    color: #F56598;
+    }
+    .font-bg5{
+	    /*background: -webkit-linear-gradient(#000, transparent);
+	    background: -o-linear-gradient(#000, transparent);
+	    background: -moz-linear-gradient(#000, transparent);
+	    background: linear-gradient(#019FFF,rgba(0,0,0,0));	*/
+	    border-radius: 8px;
+	    padding: 4px;
+	    color: #358AFF;
+    }
+/*向上向下*/
+    .yd-icon-icon-xiangshangjiantou:before {
+        content: '\E623';
+    }
+       .yd-icon-icon-xiangxiajixu:before {
+        content: '\E69c';
+    }
+    
+
+
+    .yd-icon-icon-user1:before {
+        content: '\E605';
+    }
+    .yd-icon-icon-search:before {
+        content: '\E669';
+    }

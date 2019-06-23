@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#media{
+								width: 280px;
+				height: 250px;
+				margin: 10px auto 0;
+				border-radius: 30px;
+				overflow: hidden;
+				opacity: 0.7px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="camera" id="media">
+    		<video id="video" style="width: 400px;height: 400px;" autoplay></video>
+			<canvas id="canvas" style="width: 400px;height: 400px;">
+			
+			</canvas>
+    	</div>
+	</body>
+	<script>
+    	//video
+	  		var video = document.getElementById("video"); //获取video标签
+	  		var context = canvas.getContext("2d");
+	  		var con  ={
+	  			audio:false,
+	  			video:{
+	  			width:1980,
+	  			height:1024,
+	  			}
+	  		};	
+  			
+  			//导航 获取用户媒体对象
+  			if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(con).then(function(stream) {
+            console.log(stream);
+
+            mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
+
+            video.src = (window.URL || window.webkitURL).createObjectURL(stream);
+            video.play();
+        }).catch(function(err) {
+            console.log(err);
+        })
+    }
+	  			
+	  	
+	  			function query(){
+	  				
+	  				//把流媒体数据画到convas画布上去
+	  				context.drawImage(video,0,0,400,300);
+	  				var base = getBase64();
+	  				/* console.log(base); */
+	  				
+	  				$.ajax({
+	  					type:"post",
+	  					url:"${pageContext.request.contextPath}/facelogin.action",
+	  					data:{"base":base},
+	  					success:function(data){
+	  						
+	  						/* alert(data) */
+								var result = eval(data);
+								console.log(data);
+								if(result){
+									
+
+									// location.replace("/www.baidu.com");
+									 //location.href='text.jsp';//此处跳转页面
+									 
+									 alert("登录成功")
+									 //location.href="/localhost:8180/ssh-five/putong.jsp";
+									 
+									} else {
+										alert("面容识别失败,请继续验证");
+									}
+									;
+								}
+							});
+
+				}
+				function getBase64() {
+					var imgSrc = document.getElementById("canvas").toDataURL(
+							"image/png");
+					alert(imgSrc);
+					return imgSrc.split("base64,")[1];
+
+				};
+     	
+  		
+	</script>
+</html>

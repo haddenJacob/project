@@ -1,0 +1,25 @@
+使用 vue-cli构建的项目,在 默认情况下 ,执行 npm run build  会将所有的js代码打包为一个整体,
+打包位置是 dist/static/js/app.[contenthash].js   
+类似下面的路由代码 
+router/index.js  路由相关信息,该路由文件引入了多个 .vue组件
+
+import Hello from '@/components/Hello'
+import Province from '@/components/Province'
+import Segment from '@/components/Segment'
+import User from '@/components/User'
+import Loading from '@/components/Loading'
+执行 npm run build 会打包为一个整体 app.[contenthash].js ,这个文件是非常大,可能几兆或者几十兆,加载会很慢
+
+所以我们需要分模块打包,把我们想要组合在一起的组件打包到一个 chunk块中去
+分模块打包需要下面这样使用 webpack的 require.ensure,并且在最后加入一个 chunk名,
+相同 chunk名字的模块将会打包到一起
+router/index.js 修改为懒加载组件
+
+router/index.js 修改为懒加载组件
+const Province = r => require.ensure([], () => r(require('@/components/Province.vue')), 'chunkname1')
+const Segment = r => require.ensure([], () => r(require('@/components/Segment.vue')), 'chunkname1')
+const Loading = r => require.ensure([], () => r(require('@/components/Loading.vue')), 'chunkname3')
+const User = r => require.ensure([], () => r(require('@/components/User.vue')), 'chunkname3')
+根据 chunkame的不同, 上面的四个组件, 将会被分成3个块打包,最终打包之后与组件相关的js文件会分为3个 (除了app.js,manifest.js, vendor.js)
+分模块打包之后在 dist目录下是这样的, 这样就把一个大的 js文件分为一个个小的js文件了,按需去下载,其他的使用方法和import的效果一样
+参考vue-router官方文档: https://router.vuejs.org/zh-cn/advanced/lazy-loading.html

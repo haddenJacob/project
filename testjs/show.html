@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../face/js/jquery-1.11.0.min.js"></script>
+
+		<style>
+			.show{
+				position: absolute;
+				margin: auto;
+				left: 30%;
+				right: 50%;
+				width: 500px;
+				height: 500px;
+				background-color: blue;
+				border-radius: 100px;
+				text-align: center;
+				line-height: 500px;
+				display: none;
+			}
+			.showjs{
+				position: absolute;
+				margin: auto;
+				left: 30%;
+				right: 50%;
+				width: 500px;
+				height: 500px;
+				background-color: red;
+				border-radius: 100px;
+				text-align: center;
+				line-height: 500px;
+				display: none;
+			}
+		</style>
+		<script>		
+	//常用jq
+			$(document).ready(function(){
+			 $('#show_id').on('click',function(){
+				console.log(1)
+				$('.show').show()
+				
+			})
+			  $('.close_id').on('click',function(){
+				console.log(2)
+				$('.show').hide()
+			})
+
+			  
+		//js	
+			});	
+			  function showjs(){
+			  	document.getElementById("showjs").style.display = 'block';
+			  	console.log(0)
+			  }
+			  function closejs(){
+			  	document.getElementById("showjs").style.display="none"
+			  }
+			
+		</script>		
+	</head>
+	<body>
+		<div class="show">显示</div>
+		<div class="show_id" id="show_id"><button  value="show">show显示</button></div>
+		<div><button class="close_id" value="close">close隐藏</button></div>
+		
+		<!--<div class="showjs" id="showjs">显示</div>
+		<div class="show_idjs" id="show_id"><button  onclick="showjs()"  value="show">show显示</button></div>
+		<div><button class="close_idjs" value="close" onclick="closejs()" >close隐藏</button></div>-->
+	</body>
+
+</html>

@@ -1,0 +1,3 @@
+该组件可以相互调用，也可以调用components组件
+
+其他同compnents说明文档

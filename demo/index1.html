@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" charset="utf-8" src="layui/js/layui.all.js"></script>
+		<script type="text/javascript" src="../testjs/jquery.min.js"></script>
+		<link rel="stylesheet" href="layui/css/layui.css" />
+	</head>
+	<script type="text/javascript">
+		$(function(){
+			$('#table-li').children('li').on('click',function(){
+			$('#table-li').children('li').css('border-bottom-color','red')
+		})		
+		})
+
+		
+	</script>
+		<style type="text/css">
+			 body{text-align:center} 
+			.content{
+				margin:0 auto;
+				background-color: #FBFBFB;
+				text-align:center;
+			}
+			.index-content{
+				overflow-x:auto;
+			}
+			.index-header{
+				display: flex;
+				flex-flow: row;
+				height:210px;
+				justify-content:center;
+				text-align:center;
+				line-height:210px;
+				margin:0 auto;
+				
+			}
+			.headerone{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:60px;
+				margin-right:60px;
+				overflow: hidden;
+				border: 5px solid #3c82c4; 
+				color: #3c82c4;
+			}
+			.grid-content{
+				display:grid;
+				border-radius: 10px;
+				/* grid-template-rows: 100px 60px; */
+				/* margin-left:-20px; */		
+			}
+			.headertop{
+				cursor: pointer;
+				line-height: 100px;	
+				text-align:center;		
+			}
+			.headerbottom{
+				line-height: 60px;	
+				text-align:center;						
+			}
+			.headertwo{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:60px;
+				margin-right:60px;
+				overflow: hidden;
+				border: 5px solid #F2711C; 
+				color: #F2711C;				
+			}
+			.headerthree{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:60px;
+				margin-right:60px;
+				overflow: hidden;
+				border: 5px solid #6435C9; 	
+				color: #6435C9;								
+			}
+			.headerfour{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:60px;
+				margin-right:60px;
+				overflow: hidden;
+				border: 5px solid #3c82c4; 
+				color: #3c82c4;					
+			}
+			.headerfive{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:60px;
+				margin-right:60px;
+				overflow: hidden;
+				border: 5px solid #F2711C; 	
+				color: #F2711C;		
+			}
+			.headersix{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:60px;
+				margin-right:60px;
+				overflow: hidden;
+				border: 5px solid #6435C9; 
+				color: #6435C9;					
+			}
+/* 			.headerseven{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:50px;
+				margin-right:50px;
+				overflow: hidden;
+				border: 5px solid #3c82c4; 				
+			} */									
+			/*index头部字体样式*/
+			.headerfont1{
+				font-family: "微软雅黑";
+				text-align: center;
+				font-size: 36px;
+				height:100px;
+				font-weight: bold;
+
+			}
+			.headerfont{
+				display: inline-block;
+				width: 100px;
+				margin-top:-20px;
+				text-align:center;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				text-align: center;
+				font-weight: bold;
+				white-space: nowrap;
+				overflow: hidden;
+   				text-overflow: ellipsis;				
+			}
+			@media screen and (max-width: 1860px) {
+			.index-content{
+				/*min-width:900px;max-width:1860; overflow-x:auto;*/
+					text-align:center;
+					
+				}
+			.index-header{
+				display: flex;
+				flex-flow: row;
+				justify-content:center;
+				height:170px;
+				/*width:1860px;*/
+				text-align:center;
+				line-height:170px;
+				
+				
+			}
+			.headerone{
+				width:120px;
+				background-color: white;
+				height: 120px;
+				border-radius: 100%;
+				margin: 20px;
+				overflow: hidden;
+				border: 5px solid #3c82c4; 
+				color: #3c82c4;
+			}
+			.grid-content{
+				display:grid;
+				border-radius: 10px;
+				/* grid-template-rows: 100px 60px; */
+				/* margin-left:-20px; */		
+			}
+			.headertop{
+				cursor: pointer;
+				line-height: 80px;	
+				text-align:center;		
+			}
+			.headerbottom{
+				line-height: 40px;	
+				text-align:center;						
+			}
+			.headertwo{
+				width:120px;
+				background-color: white;
+				height: 120px;
+				border-radius: 100%;
+				margin: 20px;
+				overflow: hidden;
+				border: 5px solid #F2711C; 
+				color: #F2711C;				
+			}
+			.headerthree{
+				width:120px;
+				background-color: white;
+				height: 120px;
+				border-radius: 100%;
+				margin: 20px;
+				overflow: hidden;
+				border: 5px solid #6435C9; 	
+				color: #6435C9;								
+			}
+			.headerfour{
+				width:120px;
+				background-color: white;
+				height: 120px;
+				border-radius: 100%;
+				margin: 20px;
+				overflow: hidden;
+				border: 5px solid #3c82c4; 
+				color: #3c82c4;					
+			}
+			.headerfive{
+				width:120px;
+				background-color: white;
+				height: 120px;
+				border-radius: 100%;
+				margin: 20px;
+				overflow: hidden;
+				border: 5px solid #F2711C; 	
+				color: #F2711C;		
+			}
+			.headersix{
+				width:120px;
+				background-color: white;
+				height: 120px;
+				border-radius: 100%;
+				margin: 20px;
+				overflow: hidden;
+				border: 5px solid #6435C9; 
+				color: #6435C9;					
+			}
+/* 			.headerseven{
+				width:160px;
+				background-color: white;
+				height: 160px;
+				border-radius: 100%;
+				margin: 20px;
+				margin-left:50px;
+				margin-right:50px;
+				overflow: hidden;
+				border: 5px solid #3c82c4; 				
+			} */									
+			/*index头部字体样式*/
+			.headerfont1{
+				font-family: "微软雅黑";
+				text-align: center;
+				font-size: 30px;
+				height:80px;
+				font-weight: bold;
+
+			}
+			.headerfont{
+				display: inline-block;
+				width: 80px;
+				margin-top:-20px;
+				text-align:center;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				text-align: center;
+				font-weight: bold;
+				white-space: nowrap;
+				overflow: hidden;
+   				text-overflow: ellipsis;				
+			}				
+			}
+			/*内容区样式表格*/
+			.index-bottom{
+				display: flex;
+				flex-flow: row;	
+				margin-top: -20px;
+			}
+			.index-left{
+				flex:1;
+				min-width:700px;
+				background-color: white;
+				height: 614px;	
+				max-height: 614px;
+				margin: 20px;
+				border-radius: 10px;
+				border:1px solid #E8E8E8; 								
+			}
+			/*chart布局*/
+			.chart-content{
+				display: flex;
+				height: 50px;
+				flex-flow:row;
+				/* grid-template-columns: 411px 411px; */
+				overflow: hidden;
+			}
+			.chart-left{
+				flex:1;
+				margin-left: 20px;
+				line-height: 50px;
+			}
+			/*右边样式*/
+			.chart-right{
+				flex:1;
+				display: flex;
+				flex-flow: row;
+				margin-right: 20px;
+				
+				justify-content:flex-end;
+				cursor: pointer;
+			}
+			.e-chart{
+				line-height: 50px;
+				margin: 5px;
+			}
+		
+			/*字体样式*/
+			.chart-left-font{
+				font-family: "微软雅黑";
+				font-size: 18px;
+				font-weight: bold;
+				color: #666666;
+			}
+			.index-right{
+				flex: 1;
+				/*background-color:  wheat;*/
+				height: 614px;
+				margin: 20px;
+				
+				border-radius: 10px;
+				border:1px solid #E8E8E8; 
+				overflow: auto;												
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<div class="content" id="content">
+			<!-- 导航数量模块 -->
+			<div class="index-content">
+				<div class="index-header">
+					<div class="headerone">
+						<div class="grid-content">
+							<div class="headertop" id="headertopone"><p class="headerfont1">32</p></div>
+							<div class="headerbottom"><p class="headerfont">出差申请</p></div>	
+						</div>
+					</div>
+					<div class="headertwo">
+						<div class="grid-content">
+							<div class="headertop" id="headertoptwo"><p class="headerfont1">121</p></div>
+							<div class="headerbottom"><p class="headerfont">请假申请</p></div>	
+						</div>
+					</div>
+					<div class="headerthree">
+						<div class="grid-content">
+							<div class="headertop" id="headertopthree"><p class="headerfont1">31</p></div>
+							<div class="headerbottom"><p class="headerfont">报销申请</p></div>	
+						</div>
+					</div>
+					<div class="headerfour">
+						<div class="grid-content">
+							<div class="headertop" id="headertopfour"><p class="headerfont1">323</p></div>
+							<div class="headerbottom"><p class="headerfont">物质申请</p></div>	
+						</div>	
+					</div>
+					<div class="headerfive">
+						<div class="grid-content">
+							<div class="headertop" id="headertopfive"><p class="headerfont1">323</p></div>
+							<div class="headerbottom"><p class="headerfont">物质报废</p></div>	
+						</div>	
+					</div>
+					<div class="headersix">
+						<div class="grid-content">
+							<div class="headertop" id="headertopsix"><p class="headerfont1">323</p></div>
+							<div class="headerbottom"><p class="headerfont">办公流转</p></div>	
+						</div>	
+					</div>
+<!-- 					<div class="headerseven">
+						<div class="grid-content">
+							<div class="headertop" id="headertopseven"><p class="headerfont1"></p></div>
+							<div class="headerbottom"><p class="headerfont">政务中心服务总量</p></div>	
+						</div>	
+					</div>	 -->														
+				</div>
+				</div>
+				<!-- 数据报表模块 -->
+				<div class="index-bottom">
+<!-- 					<div class="index-left">
+						<div class="chart-content">
+							<div class="chart-left"><p class="chart-left-font">接口调用频率</p></div>
+							<div class="chart-right">
+								<div class="e-chart" id="div-thread">
+									<img  class="e-chart1"  alt=" " src="../assets/img/kqcl-index/thread.png"/>
+								</div>
+								<div class="e-chart" id="div-pillar">
+									<img  class="e-chart2" alt=" " src="../assets/img/kqcl-index/pillar.png"/>
+								</div>
+								<div class="e-chart" id="div-refresh">
+									<img  class="e-reflash" alt=" " src="../assets/img/kqcl-index/refresh.png" />
+								</div>
+								<div class="e-chart" id="div-download">
+									<img  class="e-download" alt=" " src="../assets/img/kqcl-index/download.png" />
+								</div>
+							</div>
+						</div>
+						<div>
+							<div id="main" style="width: 600px;height:400px;">
+								报表数据
+							</div>
+						</div>
+					</div> -->
+					<!-- 右边table数据模块 -->
+					<div class="index-right">
+						<div>
+							<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+							  <ul class="layui-tab-title" id="table-li">
+							    <li  class="layui-this" id="dealActiveClickone">出差申请</li>
+							    <li id="dealActiveClicktwo">请假申请</li>
+							    <li id="dealActiveClickthree">报销申请</li>
+							    <li id="dealActiveClickfour">物质申请</li>
+							    <li id="dealActiveClicktwo">物质报废</li>
+							    <li id="dealActiveClicktwo">办公流转</li>
+							  </ul>
+							  <div class="layui-tab-content">
+							    <div class="layui-tab-item layui-show">
+							    	<table id="table1"></table>
+							    	<script type="text/html" id="barDemo">
+ 									 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+ 									 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+									</script>
+							    </div>
+							    <div class="layui-tab-item">
+							    	<table id="table2"></table>						    	
+							    </div>
+							  </div>
+							</div> 							
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</body>
+</html>

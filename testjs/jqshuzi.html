@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="donghua/magic-master/magic.css" />
+		<link rel="stylesheet" href="donghua/css-loaders-step2/css/load1.css" />
+		<link rel="stylesheet" href="donghua/anijs-master/test/jasmine-standalone/lib/jasmine-2.0.0/jasmine.css" />
+		<script src="jquery.min.js"></script>
+		<script  type="text/javascript" src="donghua/anijs-master/dist/anijs-min.js"></script>
+		<script  type="text/javascript" src="donghua/anijs-master/src/helpers/dom/anijs-helper-dom.js"></script>
+		<script src="donghua/anime-master/anime-master/lib/anime.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+			var bouncingBall = anime({
+					targets: '.ball',
+					translateY: '50vh',
+					duration: 300,
+					loop: true,
+					direction: 'alternate',
+					easing: 'easeInCubic',
+					scaleX: {
+						value: 1.05,
+						duration: 150,
+						delay: 268
+					}
+			});	
+			$('.load11').on('click',function(){
+				$(this).addClass('flipInY');
+				$(this).addClass('animated');
+			})
+			})
+
+		</script>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background-color: black;
+			}
+			.wrapper {
+				height: 80vh;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				position: relative;
+				overflow: hidden;
+				border: 1px solid blue;
+				background-color: lightblue;
+				color: #444;
+			}
+			
+			.ball {
+				height: 200px;
+				width: 200px;
+				position: absolute;
+				top: 20px;
+				bottom: 0;
+				left: calc(50% - 100px);
+				background-color: darkblue;
+				border-radius: 100%;
+			}
+			.br{
+				width: 20px;
+				height: 20px;
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<section class="wrapper">
+			<div class="br magictime boingInUp">1661</div>
+			<div class="br magictime boingOutDown">1661</div>
+			<div class="br magictime slideDown">1661</div>
+			<div class="br magictime slideDownReturn">1661</div>
+			<div class="br magictime slideInLeft">1661</div>
+			<div class="br magictime rotateIn">1661</div>
+			<div class="br magictime rotateInDownLeft">1661</div>
+			<div class="br magictime rotateInUpRight">1661</div>
+			<div class="br magictime perspectiveDown">1661</div>
+			<div class="br magictime perspectiveUp">1661</div>
+			<div class="br magictime openDownLeft">1661</div>
+			<div class="br magictime openDownRightOut">1661</div>
+			<div class="br magictime foolishIn">1661</div>
+			<div class="br magictime holeOut">1661</div>
+			<div class="br magictime boingInUp">1661</div>
+			<div class="br magictime swashIn">1661</div>
+			<div class="br magictime puffIn">1661</div>
+			<div class="br magictime openDownRightOut">1661</div>
+			<div class="br magictime tinDownIn">1661</div>
+			<div class="br magictime tinLeftOut">1661</div>
+			<div class="br magictime tinUpOut">1661</div>
+			<div class="br magictime tinUpIn">1661</div>
+			<div class="br magictime tinDownIn">1661</div>
+			<div class="ball"></div>
+			<div class="load1">
+				<div class="loader"></div>
+			</div>
+			
+		
+		</section>
+    <header data-anijs="if: click, do: flipInY animated" style="color: white;">
+        header (Click here)
+    </header>		
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    	<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+		<title></title>
+		<style>
+			body{
+				margin: 0;
+			}
+			.header{
+				font-size:20px;
+				height: 50px;
+				width: 100%;
+				background-color: blue;
+				text-align: center;
+				line-height: 50px;	
+				color: white;			
+			}
+			.header span{
+				position: absolute;
+				left: 10px;
+				font-size: 25px;
+				cursor: pointer;
+			}
+			.footer{
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				font-size:20px;
+				height: 50px;
+				width: 100%;
+				background-color: blue;
+				text-align: center;
+				line-height: 50px;	
+				color: white;
+			}
+			 #container {
+			 	position: absolute;
+			 	top: 50px;
+				bottom: 50px;
+				left: 0;
+				right: 0;
+			 	width:100%; } 
+			 .info{
+		            width:26rem;
+		            margin-top: 200px;
+		        }
+			 .item{
+			 	width: 100%;
+			 	display: flex;
+			 	flex-flow: row;
+			 	justify-content: space-around;
+			 	align-items: center;
+			 } 
+			 .item1{
+			 	flex: 1;
+			 	
+			 }
+			 .item1:hover{
+			 	cursor: pointer;
+			 }
+			 .dit{
+			 	color: red;
+			 }
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<span><</span>
+			导航</div>
+		<div>
+			<div id="container"></div>
+			<div class="info">
+			    <p id='info'></p>
+			    <p>当前位置包含景区：古隆中、三顾茅庐</p>
+			    <p>请问你需要去哪儿<input type="text" placeholder="地址检索" value="古隆中"/><button>导航</button></p>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="item">
+				<div class="item1 dit">
+					主页
+				</div>
+				<div class="item1">
+					美食
+				</div>
+				<div class="item1">
+					我的
+				</div>
+			
+			</div>
+		</div>
+		<!-- 加载地图JSAPI脚本 -->
+		<script src="https://webapi.amap.com/maps?v=1.4.14&key=1dbc0774dc31889f71f03c3762466dd2&plugin=AMap.CitySearch"></script>
+		<script>
+		    var map = new AMap.Map('container', {
+		        resizeEnable: true, //是否监控地图容器尺寸变化
+		        center: [116.397428, 39.90923],
+        		zoom: 13
+		    });
+   //获取用户所在城市信息
+    function showCityInfo() {
+        //实例化城市查询类
+        var citysearch = new AMap.CitySearch();
+        //自动获取用户IP，返回当前城市
+        citysearch.getLocalCity(function(status, result) {
+        	console.log(result)
+            if (status === 'complete' && result.info === 'OK') {
+                if (result && result.city && result.bounds) {
+                    var cityinfo = result.city;
+                    var citybounds = result.bounds;
+                    document.getElementById('info').innerHTML = '您当前所在城市：'+cityinfo;
+                    //地图显示当前城市
+                    map.setBounds(citybounds);
+                }
+            } else {
+                document.getElementById('info').innerHTML = result.info;
+            }
+        });
+    }
+    showCityInfo();
+		</script>		
+	</body>
+</html>

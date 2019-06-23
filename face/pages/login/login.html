@@ -1,0 +1,147 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0" user-scalable="yes">-->
+		<title>矿山工人上下岗智能管理系统登录</title>
+		<link type="text/css" rel="stylesheet" href="../../css/common.css" />
+		<link type="text/css" rel="stylesheet" href="../../css/header.css" />
+		<link type="text/css" rel="stylesheet" href="../../css/myAlert.css" />
+		<style type="text/css">
+			html>body{
+				background: #040f3c;
+				background: url(../../img/lbg.jpg) top center no-repeat;
+				/*background-image: url(../../img/lbg.jpg);	
+				background-repeat: no-repeat;
+				background-size: cover;*/
+			}
+			.btn-content{
+				position: absolute;top: 10px;right: 20px;
+			}
+			.btn{
+				font-family:"微软雅黑";height: 30px;
+				font-size: 20px;background: rgba(6,26,53,0.5);
+				border: 0;color: #00FFFF;
+				outline:none;
+
+			}
+			.btn a{
+				color: #00ffff!important;
+			}
+			.btn:hover{
+				font-family:"微软雅黑";height: 30px;
+				font-size: 20px;background: rgba(6,26,53,0.5);
+				border: 1px solid #00FFFF;color: #00FFFF;
+			}
+			.tip-login span{
+				display: block;
+				font-size: 26px;
+				color: #00ffff;
+				margin-top: 200px;
+				text-align: center;
+			}
+			.form-input{
+				display: flex;
+				flex-flow: column;
+				align-items: center;
+				margin-top: 122px;
+			}
+			.form-input input{
+				width: 230px;
+				height: 35px;
+				margin-left: 50px;
+				margin-bottom: 17px;
+				color: #00ffff;
+				font-size: 20px;
+				background-color: rgba(255,255,255,0);
+				border: 0;
+			}
+			.form-input input:focus{
+				width: 230px;
+				height: 35px;
+				margin-left: 50px;
+				margin-bottom: 15px;
+				color: #00ffff;
+				font-size: 20px;
+				background-color: rgba(255,255,255,0);
+				border: 0;
+			}
+			.form-input input:active{
+				width: 230px;
+				height: 35px;
+				margin-left: 50px;
+				margin-bottom: 15px;
+				color: #00ffff;
+				font-size: 20px;
+				background-color: rgba(255,255,255,0);
+				border: 0;
+			}	
+			.go{
+				display: flex;
+				align-items: center;
+				flex-flow: column;
+			}	
+			.btn-go{
+				width: 100px;
+				height: 100px;
+				margin-top: 8px;
+				border-radius: 100%;
+				text-align: center;
+				line-height: 100px;
+				background-color: rgba(43,168,230,0.2);
+				border: 1px solid #00FFFF;
+				font-weight: bold;
+				font-size: 26px;
+				color: #00FFFF;
+				cursor: pointer;
+			}	
+		</style>
+	</head>
+	<body>
+		<div class="contents">
+			<div class="header-out">
+				<div class="header">
+					<div class="title">
+						矿山工人上下岗智能管理系统
+					</div>
+					<div class="btn-content">
+						<button type="button" class="btn btnback"><a href="../../pages/home/index.html" target="_blank">返回</a></button>
+					</div>
+<!--					<div class="btn-content" style="margin-right: 50px">-->
+<!--						<button type="button" class="btn btnout"><a href="../login/login.html">注销</a></button>-->
+<!--					</div>-->
+				</div>
+			</div>
+			<div class="logincontent">
+				<div class="tip-login">
+					<span>系统启用前登录</span>
+				</div>
+
+				<div class="form-input">
+					<input type="text" class="username" name="username" value="" placeholder="请输入用户名" />
+					<input type="password" class="password" name="password" value="" placeholder="请输入启用密码" />
+				</div>
+				<div class="go">
+					<a class="btn-go" href="#">
+						<span>启用</span>
+					</a>
+				</div>
+			</div>
+			<!--<div class="others">4654546</div>-->
+		</div>
+		<script type="application/javascript" src="../../js/jquery-1.11.0.min.js"></script>
+		<script type="application/javascript" src="../../js/animateClick.js"></script>
+		<script type="application/javascript" src="../../js/common.js"></script>
+		<script type="application/javascript" src="../../js/cookie_util.js"></script>
+		<script type="application/javascript" src="../../js/jquery.cookie.js"></script>
+		<script type="application/javascript" src="../../js/myAlert.js"></script>
+		<script type="application/javascript" src="../../js/fetch/fetch.js"></script>
+		<script type="application/javascript" src="../../js/baseUrl/baseurl.js"></script>
+
+		<script  type="text/javascript" src="../../js/layer/layer.js"></script>
+		<script type="application/javascript" src="../../js/login/login.js"></script>
+		<script type="application/javascript">
+		</script>
+	</body>
+</html>
